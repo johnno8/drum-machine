@@ -36,9 +36,8 @@ class App extends Component {
   }
 
   handleClick = (event) => {
-    const sound = new Audio(event.target.value);
     console.log(event.target.value);
-    sound.play();
+    this.playSound(event.target.value);
   }
 
   playSound = (url) => {
@@ -55,8 +54,6 @@ class App extends Component {
     );
   }
 }
-
-// onClick={this.handleClick}/>
 
 class PadContainer extends Component {
 
@@ -97,8 +94,3 @@ function DrumPad(props) {
 }
 
 export default App;
-
-// <button className="drum-pad" onClick={props.onClick} value={props.url}> //works
-
-// <button className="drum-pad" handleclick={props.handleclick} value={props.url}>
-// <div className="drum-pad" id={props.id} onClick={props.onClick}>
