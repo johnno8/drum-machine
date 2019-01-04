@@ -48,6 +48,10 @@ class App extends Component {
     document.addEventListener('keydown', this.handleKeyPress);
   }
 
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyPress);
+  }
+
   handleClick = (event) => {
     console.log(event.target.value);
     this.playSound(event.target.value);
