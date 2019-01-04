@@ -42,6 +42,9 @@ const notes = [{
 class App extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      displayName: ''
+    }
   }
 
   componentDidMount() {
@@ -66,6 +69,9 @@ class App extends Component {
     const note = notes.find(obj => obj.keyCode == key);
     if(note !== undefined) {
       console.log(note);
+      this.setState({
+        displayName: note.name
+      });
       const sound = new Audio(note.url).play();
     }
   }
@@ -76,6 +82,8 @@ class App extends Component {
         <PadContainer 
           className="pad-container"
           onClick={this.handleClick}/>
+        <ControlsContainer 
+          name={this.state.displayName}/>
       </div>
     );
   }
@@ -117,6 +125,20 @@ function DrumPad(props) {
       <audio src={props.url} type="audio/mpeg"></audio>
     </button>
   );
+}
+
+class ControlsContainer extends Component {
+
+  render() {
+    return(
+      <div className="controls-container">
+        <div className="control" id="display">{this.props.name}</div>
+        <div className="control" id="power">power</div>
+        <div className="control" id="volume">volume</div>
+        <div className="control" id="mode">mode</div>
+      </div>
+    )
+  }
 }
 
 export default App;
