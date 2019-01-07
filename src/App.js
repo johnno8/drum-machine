@@ -198,9 +198,6 @@ class ControlsContainer extends Component {
           </label>
           <div>off</div>
         </div>
-        {/*<ControlSwitch
-          onClick={this.props.onClick}
-          id={'power'}/> */}
         <div className="control" id="volume">volume</div>
         <div className="control" id="mode">
           <div>mode1</div>
@@ -210,23 +207,9 @@ class ControlsContainer extends Component {
           </label>
           <div>mode2</div>
         </div>
-        {/*<ControlSwitch
-          onClick={this.props.onClick}
-          id={'mode'}/>*/}
       </div>
     )
   }
 }
-
-// function ControlSwitch(props) {
-//   return(
-//     <div className="control control-switch" id={props.id}>
-//       <label className="switch">
-//         <input type="checkbox" onClick={props.onClick} value={props.id}/>
-//         <span className="slider round"></span>
-//       </label>
-//     </div>
-//   );
-// }
 
 export default App;
