@@ -43,12 +43,14 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      displayName: ''
+      displayName: '',
+      power: false
     }
   }
 
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyPress);
+    console.log(this.state.power);
   }
 
   componentWillUnmount() {
@@ -67,13 +69,21 @@ class App extends Component {
   playSound = (key) => {
     console.log(key);
     const note = notes.find(obj => obj.keyCode == key);
-    if(note !== undefined) {
+    if(this.state.power && note !== undefined) {
       console.log(note);
       this.setState({
         displayName: note.name
       });
       const sound = new Audio(note.url).play();
     }
+  }
+
+  powerToggle = (event) => {
+    this.setState({
+      power: !this.state.power,
+      displayName: ''
+    });
+    console.log(this.state.power);
   }
 
   render() {
@@ -83,7 +93,8 @@ class App extends Component {
           className="pad-container"
           onClick={this.handleClick}/>
         <ControlsContainer 
-          name={this.state.displayName}/>
+          name={this.state.displayName}
+          onClick={this.powerToggle}/>
       </div>
     );
   }
@@ -133,7 +144,12 @@ class ControlsContainer extends Component {
     return(
       <div className="controls-container">
         <div className="control" id="display">{this.props.name}</div>
-        <div className="control" id="power">power</div>
+        <div className="control" id="power">
+          <label className="switch">
+            <input type="checkbox" onClick={this.props.onClick}/>
+            <span className="slider round"></span>
+          </label>
+        </div>
         <div className="control" id="volume">volume</div>
         <div className="control" id="mode">mode</div>
       </div>
