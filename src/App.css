@@ -55,7 +55,14 @@
   line-height: 40px;
 }
 
-#power, #mode {
+#power {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 26px;
+}
+
+#mode {
   display: flex;
   align-items: center;
   justify-content: space-around;

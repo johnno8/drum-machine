@@ -124,10 +124,10 @@ class App extends Component {
         power: !this.state.power,
         displayName: ''
       });
-      console.log(this.state.power);
     } else {
       this.setState({
-        mode: !this.state.mode
+        mode: !this.state.mode,
+        displayName: ''
       });
     }
   }
@@ -190,27 +190,43 @@ class ControlsContainer extends Component {
     return(
       <div className="controls-container">
         <div className="control" id="display">{this.props.name}</div>
-        <ControlSwitch
+        <div className="control" id="power">
+          <div>on</div>
+          <label className="switch">
+            <input type="checkbox" onClick={this.props.onClick} value={'power'}/>
+            <span className="slider round"></span>
+          </label>
+          <div>off</div>
+        </div>
+        {/*<ControlSwitch
           onClick={this.props.onClick}
-          id={'power'}/>
+          id={'power'}/> */}
         <div className="control" id="volume">volume</div>
-        <ControlSwitch
+        <div className="control" id="mode">
+          <div>mode1</div>
+          <label className="switch">
+            <input type="checkbox" onClick={this.props.onClick} value={'mode'}/>
+            <span className="slider round"></span>
+          </label>
+          <div>mode2</div>
+        </div>
+        {/*<ControlSwitch
           onClick={this.props.onClick}
-          id={'mode'}/>
+          id={'mode'}/>*/}
       </div>
     )
   }
 }
 
-function ControlSwitch(props) {
-  return(
-    <div className="control control-switch" id={props.id}>
-      <label className="switch">
-        <input type="checkbox" onClick={props.onClick} value={props.id}/>
-        <span className="slider round"></span>
-      </label>
-    </div>
-  );
-}
+// function ControlSwitch(props) {
+//   return(
+//     <div className="control control-switch" id={props.id}>
+//       <label className="switch">
+//         <input type="checkbox" onClick={props.onClick} value={props.id}/>
+//         <span className="slider round"></span>
+//       </label>
+//     </div>
+//   );
+// }
 
 export default App;
