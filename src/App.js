@@ -39,12 +39,51 @@ const notes = [{
     url: 'https://s3.amazonaws.com/freecodecamp/drums/Bld_H1.mp3'
   }];
 
+const notes1 = [{
+    keyCode: 81,
+    name: 'Dsc_Oh',
+    url: 'https://s3.amazonaws.com/freecodecamp/drums/Dsc_Oh.mp3'
+  },{
+    keyCode: 87,
+    name: 'side_stick_1',
+    url: 'https://s3.amazonaws.com/freecodecamp/drums/side_stick_1.mp3'
+  },{
+    keyCode: 69,
+    name: 'Cev_H2',
+    url: 'https://s3.amazonaws.com/freecodecamp/drums/Cev_H2.mp3'
+  },{
+    keyCode: 65,
+    name: 'Chord_1',
+    url: 'https://s3.amazonaws.com/freecodecamp/drums/Chord_1.mp3'
+  },{
+    keyCode: 83,
+    name: 'Chord_2',
+    url: 'https://s3.amazonaws.com/freecodecamp/drums/Chord_2.mp3'
+  },{
+    keyCode: 68,
+    name: 'Chord_3',
+    url: 'https://s3.amazonaws.com/freecodecamp/drums/Chord_3.mp3'
+  },{
+    keyCode: 90,
+    name: 'Give_us_a_light',
+    url: 'https://s3.amazonaws.com/freecodecamp/drums/Give_us_a_light.mp3'
+  },{
+    keyCode: 88,
+    name: 'Dry_Ohh',
+    url: 'https://s3.amazonaws.com/freecodecamp/drums/Dry_Ohh.mp3'
+  },{
+    keyCode: 67,
+    name: 'Brk_Snr',
+    url: 'https://s3.amazonaws.com/freecodecamp/drums/Brk_Snr.mp3'
+  }];
+
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
       displayName: '',
-      power: false
+      power: true,
+      mode: true
     }
   }
 
@@ -68,7 +107,8 @@ class App extends Component {
 
   playSound = (key) => {
     console.log(key);
-    const note = notes.find(obj => obj.keyCode == key);
+    const currentNotes = this.state.mode ? notes : notes1;
+    const note = currentNotes.find(obj => obj.keyCode == key);
     if(this.state.power && note !== undefined) {
       console.log(note);
       this.setState({
@@ -79,11 +119,17 @@ class App extends Component {
   }
 
   powerToggle = (event) => {
-    this.setState({
-      power: !this.state.power,
-      displayName: ''
-    });
-    console.log(this.state.power);
+    if(event.target.value === 'power'){
+      this.setState({
+        power: !this.state.power,
+        displayName: ''
+      });
+      console.log(this.state.power);
+    } else {
+      this.setState({
+        mode: !this.state.mode
+      });
+    }
   }
 
   render() {
@@ -144,17 +190,27 @@ class ControlsContainer extends Component {
     return(
       <div className="controls-container">
         <div className="control" id="display">{this.props.name}</div>
-        <div className="control" id="power">
-          <label className="switch">
-            <input type="checkbox" onClick={this.props.onClick}/>
-            <span className="slider round"></span>
-          </label>
-        </div>
+        <ControlSwitch
+          onClick={this.props.onClick}
+          id={'power'}/>
         <div className="control" id="volume">volume</div>
-        <div className="control" id="mode">mode</div>
+        <ControlSwitch
+          onClick={this.props.onClick}
+          id={'mode'}/>
       </div>
     )
   }
+}
+
+function ControlSwitch(props) {
+  return(
+    <div className="control control-switch" id={props.id}>
+      <label className="switch">
+        <input type="checkbox" onClick={props.onClick} value={props.id}/>
+        <span className="slider round"></span>
+      </label>
+    </div>
+  );
 }
 
 export default App;
