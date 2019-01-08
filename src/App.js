@@ -77,6 +77,9 @@ const notes1 = [{
     url: 'https://s3.amazonaws.com/freecodecamp/drums/Brk_Snr.mp3'
   }];
 
+const mode1Color = '#b3ff51';
+const mode2Color = '#ff6800';
+
 class App extends Component {
   constructor(props) {
     super(props)
@@ -84,7 +87,8 @@ class App extends Component {
       displayName: '',
       power: true,
       mode: true,
-      volume: .5
+      volume: .5,
+      color: mode1Color
     }
   }
 
@@ -130,7 +134,8 @@ class App extends Component {
     } else {
       this.setState({
         mode: !this.state.mode,
-        displayName: ''
+        displayName: '',
+        color: !this.state.mode ? mode1Color : mode2Color
       });
     }
   }
@@ -143,15 +148,18 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App" id="drum-machine">
+      <div className="App" id="drum-machine"
+        style={{borderColor: this.state.color, color: this.state.color}}>
         <PadContainer 
           className="pad-container"
-          onClick={this.handleClick}/>
+          onClick={this.handleClick}
+          color={this.state.color}/>
         <ControlsContainer 
           name={this.state.displayName}
           onClick={this.powerToggle}
           changeVolume={this.changeVolume}
-          volume={this.state.volume}/>
+          volume={this.state.volume}
+          color={this.state.color}/>
       </div>
     );
   }
@@ -163,23 +171,23 @@ class PadContainer extends Component {
     return (
       <div className="pad-container">
         <DrumPad id={notes[0].name} url={notes[0].url} value={"Q"} keyCode={81}
-          onClick={this.props.onClick}/>
+          onClick={this.props.onClick} color={this.props.color}/>
         <DrumPad id={notes[1].name} url={notes[1].url} value={"W"} keyCode={87} 
-          onClick={this.props.onClick}/>
+          onClick={this.props.onClick} color={this.props.color}/>
         <DrumPad id={notes[2].name} url={notes[2].url} value={"E"} keyCode={69}
-          onClick={this.props.onClick}/>
+          onClick={this.props.onClick} color={this.props.color}/>
         <DrumPad id={notes[3].name} url={notes[3].url} value={"A"} keyCode={65}
-          onClick={this.props.onClick}/>
+          onClick={this.props.onClick} color={this.props.color}/>
         <DrumPad id={notes[4].name} url={notes[4].url} value={"S"} keyCode={83}
-          onClick={this.props.onClick}/>
+          onClick={this.props.onClick} color={this.props.color}/>
         <DrumPad id={notes[5].name} url={notes[5].url} value={"D"} keyCode={68}
-          onClick={this.props.onClick}/>
+          onClick={this.props.onClick} color={this.props.color}/>
         <DrumPad id={notes[6].name} url={notes[6].url} value={"Z"} keyCode={90}
-          onClick={this.props.onClick}/>
+          onClick={this.props.onClick} color={this.props.color}/>
         <DrumPad id={notes[7].name} url={notes[7].url} value={"X"} keyCode={88}
-          onClick={this.props.onClick}/>
+          onClick={this.props.onClick} color={this.props.color}/>
         <DrumPad id={notes[8].name} url={notes[8].url} value={"C"} keyCode={67}
-          onClick={this.props.onClick}/>
+          onClick={this.props.onClick} color={this.props.color}/>
       </div>
     );
   }
@@ -188,7 +196,8 @@ class PadContainer extends Component {
 function DrumPad(props) {
 
   return (
-    <button className="drum-pad" onClick={props.onClick} value={props.keyCode}>
+    <button className="drum-pad" onClick={props.onClick} value={props.keyCode}
+      style={{borderColor: props.color, color: props.color}}>
       {props.value}
       <audio src={props.url} type="audio/mpeg"></audio>
     </button>
@@ -200,12 +209,16 @@ class ControlsContainer extends Component {
   render() {
     return(
       <div className="controls-container">
-        <div className="control" id="display">{this.props.name}</div>
+        <div className="control" id="display"
+          style={{borderColor: this.props.color}}>{this.props.name}</div>
         <div className="control" id="power">
           <div>on</div>
           <label className="switch">
             <input type="checkbox" onClick={this.props.onClick} value={'power'}/>
-            <span className="slider round"></span>
+            <span className="slider round" 
+              style={{borderColor: this.props.color}}></span>
+              {/*<span className="powerSlider round" 
+              style={{borderColor: this.props.color}}></span> */}
           </label>
           <div>off</div>
         </div>
@@ -219,7 +232,10 @@ class ControlsContainer extends Component {
           <div>mode1</div>
           <label className="switch">
             <input type="checkbox" onClick={this.props.onClick} value={'mode'}/>
-            <span className="slider round"></span>
+            <span className="slider round"
+              style={{borderColor: this.props.color}}></span>
+             {/* <span className="modeSlider round"
+              style={{borderColor: this.props.color}}></span> */}
           </label>
           <div>mode2</div>
         </div>

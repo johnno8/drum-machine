@@ -103,7 +103,8 @@ button:focus { outline: none; }
 }
 
 /* The slider */
-.slider {
+.slider { 
+/*.powerSlider, .modeSlider {*/
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -117,6 +118,7 @@ button:focus { outline: none; }
 }
 
 .slider:before {
+/*.powerSlider:before, .modeSlider:before {*/
   position: absolute;
   content: "";
   height: 20px;
@@ -129,8 +131,15 @@ button:focus { outline: none; }
 }
 
 input:checked + .slider {
+/*input:checked + .powerSlider {*/
   background-color: #ccc;
+  /*background-color: #ff6800;*/
 }
+
+/*input:checked + .modeSlider {
+  background-color: #ccc;
+  background-color: #ff6800;
+}*/
 
 input:focus + .slider {
   box-shadow: 0 0 1px #ccc;
