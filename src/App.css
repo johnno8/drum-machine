@@ -19,12 +19,8 @@
   margin: auto;
   background: white;
   border-radius: 15px;
-
   background: #282c34;
-
   color: #b3ff51;
-  /*color: #ff6800;*/
-
   border: 1px solid #b3ff51;
 }
 
@@ -104,7 +100,6 @@ button:focus { outline: none; }
 
 /* The slider */
 .slider { 
-/*.powerSlider, .modeSlider {*/
   position: absolute;
   cursor: pointer;
   top: 0;
@@ -114,11 +109,10 @@ button:focus { outline: none; }
   -webkit-transition: .4s;
   transition: .4s;
 
-  background-color: #b3ff51;
+  background-color: #ccc;
 }
 
 .slider:before {
-/*.powerSlider:before, .modeSlider:before {*/
   position: absolute;
   content: "";
   height: 20px;
@@ -131,15 +125,8 @@ button:focus { outline: none; }
 }
 
 input:checked + .slider {
-/*input:checked + .powerSlider {*/
   background-color: #ccc;
-  /*background-color: #ff6800;*/
 }
-
-/*input:checked + .modeSlider {
-  background-color: #ccc;
-  background-color: #ff6800;
-}*/
 
 input:focus + .slider {
   box-shadow: 0 0 1px #ccc;
@@ -171,6 +158,8 @@ input:checked + .slider:before {
   opacity: 0.7;
   -webkit-transition: .2s;
   transition: opacity .2s;
+  border-left: 1px solid;
+  border-right: 1px solid;
 } 
 
 .volumeSlider:hover {
@@ -180,9 +169,9 @@ input:checked + .slider:before {
 .volumeSlider::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  width: 20px;
+  width: 15px;
   height: 25px;
-  background: #b3ff51;
+  background: #282c34;
   cursor: pointer;
 } 
 

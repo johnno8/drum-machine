@@ -79,6 +79,7 @@ const notes1 = [{
 
 const mode1Color = '#b3ff51';
 const mode2Color = '#ff6800';
+const offColor = '#ccc';
 
 class App extends Component {
   constructor(props) {
@@ -127,16 +128,26 @@ class App extends Component {
 
   powerToggle = (event) => {
     if(event.target.value === 'power'){
+      const powerState = this.state.power;
+      const currColor = this.state.color
       this.setState({
         power: !this.state.power,
-        displayName: ''
+        displayName: '',
+        color: this.setColorPower(this.state.power, this.state.color, this.state.mode)
       });
     } else {
-      this.setState({
-        mode: !this.state.mode,
-        displayName: '',
-        color: !this.state.mode ? mode1Color : mode2Color
-      });
+      if(this.state.power) {
+        this.setState({
+          mode: !this.state.mode,
+          displayName: '',
+          color: !this.state.mode ? mode1Color : mode2Color
+        });    
+      } else {
+        this.setState({
+          mode: !this.state.mode,
+          displayName: ''
+        });
+      }
     }
   }
 
@@ -144,6 +155,12 @@ class App extends Component {
     this.setState({
       volume: event.target.value
     });
+  }
+
+  setColorPower = (power, currentColor, mode) => {
+    if(!power && mode) {return mode1Color;}
+    else if(!power && !mode) {return mode2Color;}
+    else if(power){return offColor;}
   }
 
   render() {
@@ -216,26 +233,25 @@ class ControlsContainer extends Component {
           <label className="switch">
             <input type="checkbox" onClick={this.props.onClick} value={'power'}/>
             <span className="slider round" 
-              style={{borderColor: this.props.color}}></span>
-              {/*<span className="powerSlider round" 
-              style={{borderColor: this.props.color}}></span> */}
+              style={{backgroundColor: this.props.color}}></span>
           </label>
           <div>off</div>
         </div>
         <div className="control" id="volume">
-          <div>Vol</div>
+          <div>vol</div>
           <input type="range" min="0" max="1" step="0.01" className="volumeSlider" id="myRange"
             value={this.props.volume}
-            onChange={this.props.changeVolume}/>
+            onChange={this.props.changeVolume}
+            style={{backgroundColor: this.props.color,
+                    borderLeftColor: this.props.color,
+                    borderRightColor: this.props.color}}/>
         </div>
         <div className="control" id="mode">
           <div>mode1</div>
           <label className="switch">
             <input type="checkbox" onClick={this.props.onClick} value={'mode'}/>
             <span className="slider round"
-              style={{borderColor: this.props.color}}></span>
-             {/* <span className="modeSlider round"
-              style={{borderColor: this.props.color}}></span> */}
+            style={{backgroundColor: this.props.color}}></span>
           </label>
           <div>mode2</div>
         </div>
