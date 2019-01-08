@@ -15,11 +15,17 @@
 
 .App {
   display: flex;
-  border: 1px solid black;
   width: 540px;
   margin: auto;
   background: white;
-  border-radius: 10px;
+  border-radius: 15px;
+
+  background: #282c34;
+
+  color: #b3ff51;
+  /*color: #ff6800;*/
+
+  border: 1px solid #b3ff51;
 }
 
 .pad-container {
@@ -27,7 +33,6 @@
   grid-template-columns: repeat(3, 60px);
   grid-template-rows: repeat(3, 60px);
   grid-gap: 15px;
-  border: 1px solid black;
   width: 210px;
   height: 210px;
   margin: 40px;
@@ -37,23 +42,32 @@
   display: grid;
   grid-template-rows: repeat(4, auto);
   grid-gap: 10px;
-  /*align-items: center;*/
-  border: 1px solid black;
+  align-items: center;
   width: auto;
   margin-top: 40px;
   margin-bottom: 40px;
   margin-right: 40px;
 }
 
+button:focus { outline: none; }
+
 .drum-pad {
   border: 1px solid black;
   border-radius: 10%;
+
+  border: 1px solid #b3ff51;
+  background: #3e434f;
+  color: #b3ff51;
+  opacity: 1;
+}
+
+.drum-pad:hover {
+  opacity: .7;
 }
 
 .control {
   height: 40px;
   width: 210px;
-  border: 1px solid black;
   line-height: 40px;
 }
 
@@ -64,13 +78,21 @@
   height: 26px;
 }
 
+#display {
+  border: 1px solid #b3ff51;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
 /*** control switch styling ***/
 /* The switch - the box around the slider */
 .switch {
   position: relative;
   display: inline-block;
-  width: 46px;/*width: 60px;*/
-  height: 26px;/*height: 34px;*/
+  width: 46px;
+  height: 26px;
 }
 
 /* Hide default HTML checkbox */
@@ -88,10 +110,10 @@
   left: 0;
   right: 0;
   bottom: 0;
-  /*background-color: #ccc;*/
-  background-color: #2196F3;
   -webkit-transition: .4s;
   transition: .4s;
+
+  background-color: #b3ff51;
 }
 
 .slider:before {
@@ -107,12 +129,10 @@
 }
 
 input:checked + .slider {
-  /*background-color: #2196F3;*/
   background-color: #ccc;
 }
 
 input:focus + .slider {
-  /*box-shadow: 0 0 1px #2196F3;*/
   box-shadow: 0 0 1px #ccc;
 }
 
@@ -153,7 +173,7 @@ input:checked + .slider:before {
   appearance: none;
   width: 20px;
   height: 25px;
-  background: #2196F3;
+  background: #b3ff51;
   cursor: pointer;
 } 
 
