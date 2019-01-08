@@ -83,7 +83,8 @@ class App extends Component {
     this.state = {
       displayName: '',
       power: true,
-      mode: true
+      mode: true,
+      volume: .5
     }
   }
 
@@ -114,7 +115,9 @@ class App extends Component {
       this.setState({
         displayName: note.name
       });
-      const sound = new Audio(note.url).play();
+      const sound = new Audio(note.url);
+      sound.volume = this.state.volume;
+      sound.play();
     }
   }
 
@@ -132,6 +135,12 @@ class App extends Component {
     }
   }
 
+  changeVolume = (event) => {
+    this.setState({
+      volume: event.target.value
+    });
+  }
+
   render() {
     return (
       <div className="App" id="drum-machine">
@@ -140,7 +149,9 @@ class App extends Component {
           onClick={this.handleClick}/>
         <ControlsContainer 
           name={this.state.displayName}
-          onClick={this.powerToggle}/>
+          onClick={this.powerToggle}
+          changeVolume={this.changeVolume}
+          volume={this.state.volume}/>
       </div>
     );
   }
@@ -198,7 +209,12 @@ class ControlsContainer extends Component {
           </label>
           <div>off</div>
         </div>
-        <div className="control" id="volume">volume</div>
+        <div className="control" id="volume">
+          <div>Vol</div>
+          <input type="range" min="0" max="1" step="0.01" className="volumeSlider" id="myRange"
+            value={this.props.volume}
+            onChange={this.props.changeVolume}/>
+        </div>
         <div className="control" id="mode">
           <div>mode1</div>
           <label className="switch">
