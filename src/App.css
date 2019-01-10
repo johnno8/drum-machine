@@ -159,7 +159,7 @@ input:checked + .slider:before {
 
 /*** end volume slider ***/
 
-@media (max-width: 720px) {
+@media screen and (max-width: 360px) {
   .App {
     flex-direction: column;
     width: auto;
