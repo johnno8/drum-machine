@@ -114,11 +114,13 @@ class App extends Component {
 
   componentDidMount() {
     document.addEventListener('keydown', this.handleKeyPress);
+    document.addEventListener('keyup', this.handleKeyUp);
     console.log(this.state.power);
   }
 
   componentWillUnmount() {
     document.removeEventListener('keydown', this.handleKeyPress);
+    document.removeEventListener('keyup', this.handleKeyUp);
   }
 
   handleClick = (event) => {
@@ -128,6 +130,19 @@ class App extends Component {
 
   handleKeyPress = (event) => {
     this.playSound(event.keyCode);
+    const key = this.state.currentNotes.find(obj => obj.keyCode == event.keyCode);
+    if(this.state.power && key !== undefined) {
+      console.log('key: ' + JSON.stringify(key, null, 2));
+      document.getElementById(key.name).style.opacity = .7;
+    }
+  }
+
+  handleKeyUp = (event) => {
+    const key = this.state.currentNotes.find(obj => obj.keyCode == event.keyCode);
+    if(this.state.power && key !== undefined) {
+      console.log('key: ' + JSON.stringify(key, null, 2));
+      document.getElementById(key.name).style.opacity = 1;
+    }
   }
 
   playSound = (key) => {
@@ -230,7 +245,7 @@ class PadContainer extends Component {
 function DrumPad(props) {
 
   return (
-    <button className="drum-pad" onClick={props.onClick} value={props.keyCode}
+    <button className="drum-pad" id={props.id} onClick={props.onClick} value={props.keyCode}
       style={{borderColor: props.color, color: props.color}}>
       {props.value}
       <audio src={props.url} type="audio/mpeg"></audio>
