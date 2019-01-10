@@ -158,3 +158,19 @@ input:checked + .slider:before {
 } 
 
 /*** end volume slider ***/
+
+@media (max-width: 720px) {
+  .App {
+    flex-direction: column;
+    width: auto;
+  }
+
+  .controls-container {
+    margin: auto;
+    margin-bottom: 40px;
+  }
+
+  #power, #mode, #volume {
+    margin-top: 10px;
+  }
+}
