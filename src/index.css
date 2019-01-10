@@ -7,9 +7,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
- /* display: block;
-  text-align: center;*/
-
   display: flex;
   align-items: center;
   justify-content: space-around;
