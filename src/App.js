@@ -133,7 +133,7 @@ class App extends Component {
     const key = this.state.currentNotes.find(obj => obj.keyCode == event.keyCode);
     if(this.state.power && key !== undefined) {
       console.log('key: ' + JSON.stringify(key, null, 2));
-      document.getElementById(key.name).style.opacity = .7;
+      document.getElementById(key.name).style.opacity = .7;  
     }
   }
 
@@ -162,8 +162,6 @@ class App extends Component {
 
   powerToggle = (event) => {
     if(event.target.value === 'power'){
-      const powerState = this.state.power;
-      const currColor = this.state.color
       this.setState({
         power: !this.state.power,
         displayName: '',
@@ -219,27 +217,25 @@ class App extends Component {
   }
 }
 
-class PadContainer extends Component {
+function PadContainer(props) {
 
-  render() {
-    return (
-      <div className="pad-container">
-        {this.props.notes.map((note, i) => {
-            return(
-              <DrumPad
-                id={note.name}
-                url={note.url}
-                value={note.triggerKey}
-                keyCode={note.keyCode}
-                onClick={this.props.onClick}
-                color={this.props.color}
-              />
-            )
-          })
-        }
-      </div>
-    );
-  }
+  return (
+    <div className="pad-container">
+      {props.notes.map((note, i) => {
+          return(
+            <DrumPad
+              id={note.name}
+              url={note.url}
+              value={note.triggerKey}
+              keyCode={note.keyCode}
+              onClick={props.onClick}
+              color={props.color}
+            />
+          )
+        })
+      }
+    </div>
+  );
 }
 
 function DrumPad(props) {
@@ -253,43 +249,41 @@ function DrumPad(props) {
   );
 }
 
-class ControlsContainer extends Component {
+function ControlsContainer(props) {
 
-  render() {
-    return(
-      <div className="controls-container">
-        <div className="control" id="display"
-          style={{borderColor: this.props.color}}>{this.props.name}</div>
-        <div className="control" id="power">
-          <div>on</div>
-          <label className="switch">
-            <input type="checkbox" onClick={this.props.onClick} value={'power'}/>
-            <span className="slider round" 
-              style={{backgroundColor: this.props.color}}></span>
-          </label>
-          <div>off</div>
-        </div>
-        <div className="control" id="volume">
-          <div>vol</div>
-          <input type="range" min="0" max="1" step="0.01" className="volumeSlider" id="myRange"
-            value={this.props.volume}
-            onChange={this.props.changeVolume}
-            style={{backgroundColor: this.props.color,
-                    borderLeftColor: this.props.color,
-                    borderRightColor: this.props.color}}/>
-        </div>
-        <div className="control" id="mode">
-          <div>mode1</div>
-          <label className="switch">
-            <input type="checkbox" onClick={this.props.onClick} value={'mode'}/>
-            <span className="slider round"
-            style={{backgroundColor: this.props.color}}></span>
-          </label>
-          <div>mode2</div>
-        </div>
+  return(
+    <div className="controls-container">
+      <div className="control" id="display"
+        style={{borderColor: props.color}}>{props.name}</div>
+      <div className="control" id="power">
+        <div>on</div>
+        <label className="switch">
+          <input type="checkbox" onClick={props.onClick} value={'power'}/>
+          <span className="slider round" 
+            style={{backgroundColor: props.color}}></span>
+        </label>
+        <div>off</div>
       </div>
-    )
-  }
+      <div className="control" id="volume">
+        <div>vol</div>
+        <input type="range" min="0" max="1" step="0.01" className="volumeSlider" id="myRange"
+          value={props.volume}
+          onChange={props.changeVolume}
+          style={{backgroundColor: props.color,
+                  borderLeftColor: props.color,
+                  borderRightColor: props.color}}/>
+      </div>
+      <div className="control" id="mode">
+        <div>mode1</div>
+        <label className="switch">
+          <input type="checkbox" onClick={props.onClick} value={'mode'}/>
+          <span className="slider round"
+          style={{backgroundColor: props.color}}></span>
+        </label>
+        <div>mode2</div>
+      </div>
+    </div>
+  )
 }
 
 export default App;
