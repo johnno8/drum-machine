@@ -129,8 +129,12 @@ class App extends Component {
   }
 
   handleKeyPress = (event) => {
+    //play the sound associated with the pressed key
     this.playSound(event.keyCode);
+    //find correct notes array element based on keyCode of the key pressed
     const key = this.state.currentNotes.find(obj => obj.keyCode == event.keyCode);
+    //if power is on and its a valid key, change opacity of the button
+    //to indicate its been pressed
     if(this.state.power && key !== undefined) {
       console.log('key: ' + JSON.stringify(key, null, 2));
       document.getElementById(key.name).style.opacity = .7;  
@@ -138,7 +142,10 @@ class App extends Component {
   }
 
   handleKeyUp = (event) => {
+    //find correct notes array element based on keyCode of the key pressed
     const key = this.state.currentNotes.find(obj => obj.keyCode == event.keyCode);
+    //if power is on & its a valid key, 
+    //reset the opacity of the button when the key is released
     if(this.state.power && key !== undefined) {
       console.log('key: ' + JSON.stringify(key, null, 2));
       document.getElementById(key.name).style.opacity = 1;
@@ -147,7 +154,10 @@ class App extends Component {
 
   playSound = (key) => {
     console.log(key);
+    //find correct notes array element based on keyCode passed to the function
     const note = this.state.currentNotes.find(obj => obj.keyCode == key);
+    //if power is on and its a valid key/note, 
+    //display the note name and play the sound
     if(this.state.power && note !== undefined) {
       console.log(note);
       this.setState({
@@ -161,13 +171,15 @@ class App extends Component {
   }
 
   powerToggle = (event) => {
+    //if its the power switch, toggle power, clear display and decide which color to set
     if(event.target.value === 'power'){
       this.setState({
         power: !this.state.power,
         displayName: '',
         color: this.setColorPower(this.state.power, this.state.color, this.state.mode)
       });
-    } else {
+    } else { //if its the mode switch
+      //if power is on, toggle mode, clear display, set correct color, set correct notes array
       if(this.state.power) {
         this.setState({
           mode: !this.state.mode,
@@ -175,7 +187,9 @@ class App extends Component {
           color: !this.state.mode ? mode1Color : mode2Color,
           currentNotes: !this.state.mode ? notes : notes1
         });    
-      } else {
+      } else { //if power is off
+        //toggle mode, clear display, set correct notes array 
+        //(color will be set when power is switched on)
         this.setState({
           mode: !this.state.mode,
           displayName: '',
@@ -191,6 +205,7 @@ class App extends Component {
     });
   }
 
+  //decides correct color based on power and mode values
   setColorPower = (power, currentColor, mode) => {
     if(!power && mode) {return mode1Color;}
     else if(!power && !mode) {return mode2Color;}
@@ -218,7 +233,6 @@ class App extends Component {
 }
 
 function PadContainer(props) {
-
   return (
     <div className="pad-container">
       {props.notes.map((note, i) => {
@@ -239,7 +253,6 @@ function PadContainer(props) {
 }
 
 function DrumPad(props) {
-
   return (
     <button className="drum-pad" id={props.id} onClick={props.onClick} value={props.keyCode}
       style={{borderColor: props.color, color: props.color}}>
@@ -250,7 +263,6 @@ function DrumPad(props) {
 }
 
 function ControlsContainer(props) {
-
   return(
     <div className="controls-container">
       <div className="control" id="display"
